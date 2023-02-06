@@ -1,6 +1,6 @@
 package emulator
 
-type PC int
+type PC int16
 type Bytecode []byte
 
 // A Runtime has a stack, a program counter, and a map of registers.
@@ -22,7 +22,7 @@ type Runtime struct {
 func NewRuntime(program []byte) *Runtime {
 	return &Runtime{
 		Stack:           NewStack(),
-		PC:              -1,
+		PC:              0x1FF,
 		Registers:       make(map[Register]int),
 		CurrentBytecode: make([]byte, 2),
 		Program:         program,
