@@ -1,19 +1,38 @@
 package emulator
 
+import "errors"
+
 type Stack struct {
-	Stack []byte
+	Stack []int16
 }
+
+type ok bool
 
 func NewStack() *Stack {
-	return &Stack{
-		Stack: make([]byte, 4096),
-	}
+	return &Stack{}
 }
 
-func (s *Stack) Top() byte {
+func (s *Stack) Empty() ok {
 	if len(s.Stack) > 0 {
-		return s.Stack[len(s.Stack)-1]
+		return false
 	}
 
-	return 00
+	return true
+}
+
+func (s *Stack) Len() int {
+	return len(s.Stack)
+}
+
+func (s *Stack) Push(data int16) {
+	s.Stack = append(s.Stack, data)
+}
+
+func (s *Stack) Top() (int16, error) {
+
+	if !s.Empty() {
+		return s.Stack[s.Len()-1], nil
+	}
+
+	return -1, errors.New("Stack was empty")
 }
