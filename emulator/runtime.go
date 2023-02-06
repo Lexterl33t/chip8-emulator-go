@@ -1,6 +1,7 @@
 package emulator
 
 type PC int
+type Bytecode []byte
 
 // A Runtime has a stack, a program counter, and a map of registers.
 // @property Stack - The stack is a data structure that is used to store data. It is a LIFO (Last In
@@ -11,7 +12,7 @@ type PC int
 type Runtime struct {
 	Stack           *Stack
 	PC              PC
-	CurrentBytecode []byte
+	CurrentBytecode Bytecode
 	Registers       map[Register]int
 	Program         []byte
 }
@@ -43,11 +44,15 @@ func (runtime *Runtime) NextOpcode() {
 	}
 }
 
-func (runtime *Runtime) Fetch() ([]byte, ok) {
+func (runtime *Runtime) Fetch() (Bytecode, ok) {
 
 	if runtime.PC >= 0 {
 		return runtime.CurrentBytecode, true
 	}
 
 	return nil, false
+}
+
+func (runtime *Runtime) Decode(Bytecode) {
+
 }
