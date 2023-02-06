@@ -28,6 +28,15 @@ func (s *Stack) Push(data int16) {
 	s.Stack = append(s.Stack, data)
 }
 
+func (s *Stack) Pop() error {
+	if !s.Empty() {
+		s.Stack = s.Stack[:s.Len()-1]
+		return nil
+	}
+
+	return errors.New("The stack was empty")
+}
+
 func (s *Stack) Top() (int16, error) {
 
 	if !s.Empty() {

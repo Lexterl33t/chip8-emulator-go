@@ -41,3 +41,22 @@ func TestNotEmptyTop(t *testing.T) {
 		t.Errorf("Stack was empty")
 	}
 }
+
+func TestEmptyPop(t *testing.T) {
+	stack := emulator.NewStack()
+
+	err := stack.Pop()
+	if err == nil {
+		t.Errorf("Stack was not empty")
+	}
+}
+
+func TestNotEmptyPop(t *testing.T) {
+	stack := emulator.NewStack()
+	stack.Push(0x10)
+
+	err := stack.Pop()
+	if err != nil {
+		t.Errorf("Stack was  empty")
+	}
+}
