@@ -2,10 +2,19 @@ package emulator
 
 import "fmt"
 
+// > Execute the bytecode
 func Exec(bytescode []byte) {
 
-	var cpu *CPU = NewCPU()
+	var runtime *Runtime = NewRuntime(bytescode)
 
-	fmt.Println(cpu.Stack)
+	for runtime.PC < PC(len(bytescode)) {
+
+		if bytecode, ok := runtime.Fetch(); ok {
+			fmt.Println(bytecode)
+		}
+
+		runtime.NextOpcode()
+	}
+
 	fmt.Println("Execute bytecodes")
 }
